@@ -45,21 +45,22 @@ async function sha256(message) {
 }
 
 async function getSHA256Hash() {
-  let cached = retrieve('sha256');
-  if (cached) {
-    return cached;
-  }
-
-  cached = await sha256(getRandomArbitrary(MIN, MAX));
-  store('sha256', cached);
-  return cached;
+  let newRandomNumber = getRandomArbitrary(MIN, MAX); 
+  let hash = await sha256(newRandomNumber.toString()); 
+  store('sha256', hash);  
+  return hash;
 }
+
+
+
+
 
 async function main() {
   sha256HashView.innerHTML = 'Calculating...';
-  const hash = await getSHA256Hash();
-  sha256HashView.innerHTML = hash;
+  const hash = await getSHA256Hash(); 
+  sha256HashView.innerHTML = hash; 
 }
+
 
 async function test() {
   const pin = pinInput.value;
